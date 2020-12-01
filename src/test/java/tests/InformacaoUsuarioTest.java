@@ -3,8 +3,12 @@ package tests;
 import  static org.junit.Assert.*;
 
 
+import org.easetech.easytest.annotation.DataLoader;
+import org.easetech.easytest.annotation.Param;
+import org.easetech.easytest.runner.DataDrivenTestRunner;
 import org.junit.*;
 import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,6 +22,8 @@ import suporte.ScreenShot;
 
 import java.util.concurrent.TimeUnit;
 
+@RunWith(DataDrivenTestRunner.class)
+@DataLoader(filePaths = "InformacaoUsuarioTest.csv") //onde fcara guardado os dados da classe
 public class InformacaoUsuarioTest {
 
     private WebDriver navegador;
@@ -61,7 +67,8 @@ public class InformacaoUsuarioTest {
     }
 
     @Test
-    public void testAdicionarUmainformacaoAdicionalUsuario(){
+    public void testAdicionarUmainformacaoAdicionalUsuario(@Param(name="tipo")String tipo, @Param(name="contato")String contato,@Param(name="mensagem")String mensagemEsperada
+    ){
 
 
 
@@ -74,9 +81,9 @@ public class InformacaoUsuarioTest {
 
         //na combo de nam type escolher a opção phone
          WebElement campoType = popupAppMoreData.findElement(By.name("type")); //identifica elemente e coloca nome dele -2
-        new Select(campoType).selectByVisibleText("Phone"); //interagir com combobox
+        new Select(campoType).selectByVisibleText(tipo); //interagir com combobox
         //no campode name contact digitar o telefone
-        popupAppMoreData.findElement(By.name("contact")).sendKeys("+5548999999999");
+        popupAppMoreData.findElement(By.name("contact")).sendKeys(contato);
 
         //clicar no link de  save que está na popup
         popupAppMoreData.findElement(By.linkText("SAVE")).click();
@@ -85,7 +92,7 @@ public class InformacaoUsuarioTest {
         WebElement mensagemPop = navegador.findElement(By.id("toast-container"));
 
         String mensagem = mensagemPop.getText();
-        assertEquals("Your contact has been added!", mensagem);
+        assertEquals(mensagemEsperada, mensagem);
 
 
 
@@ -93,7 +100,7 @@ public class InformacaoUsuarioTest {
     }
 
 
-    @Test
+    //@Test
     public void removerContatoUsuario(){
         // clicar no elemento pelo seu xpath
         navegador.findElement(By.xpath("//span[text()=\"+5548999999999\"]/following-sibling::a")).click();
