@@ -40,6 +40,8 @@ public class InformacaoUsuárioTest {
 
 
         navegador.close();
+
+        //estudos Selenium
     }
 
 
