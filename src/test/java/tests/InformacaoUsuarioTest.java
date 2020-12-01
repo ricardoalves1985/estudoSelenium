@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class InformacaoUsuárioTest {
+public class InformacaoUsuarioTest {
     @Test
     public void testAdicionarUmainformacaoAdicionalUsuario(){
         System.setProperty("webdriver.chrome.driver", "/Users/ricardoalves/IdeaProjects/chromedriver");
