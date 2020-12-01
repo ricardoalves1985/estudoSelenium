@@ -3,10 +3,8 @@ package tests;
 import  static org.junit.Assert.*;
 
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.rules.TestName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,12 +13,16 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import suporte.Generator;
+import suporte.ScreenShot;
 
 import java.util.concurrent.TimeUnit;
 
 public class InformacaoUsuarioTest {
 
     private WebDriver navegador;
+    @Rule
+    public TestName test = new TestName();
 
     @Before
     public void steUP(){ System.setProperty("webdriver.chrome.driver", "/Users/ricardoalves/IdeaProjects/chromedriver");
@@ -58,7 +60,7 @@ public class InformacaoUsuarioTest {
 
     }
 
-    //@Test
+    @Test
     public void testAdicionarUmainformacaoAdicionalUsuario(){
 
 
@@ -104,17 +106,22 @@ public class InformacaoUsuarioTest {
         String mensagem = mensagemPop.getText();
         assertEquals("Rest in peace, dear phone!", mensagem);
 
+        String screenshotArquivo = "/Users/ricardoalves/test-report/taskit/" + Generator.dataHoraParaArquivo()+ test.getMethodName()+ ".png";
+        ScreenShot.tirar(navegador, screenshotArquivo);
+
 
         // aguardar até 10s para ajanela desaparecer.
         WebDriverWait aguardar = new WebDriverWait(navegador, 10);
         aguardar.until(ExpectedConditions.stalenessOf(mensagemPop));
+
+
         // clicar no link contexto  Logout
 
         navegador.findElement(By.linkText("Logout")).click();
     }
     @After
     public void testDown(){
-        //navegador.close();
+        navegador.close();
 
     }
 
