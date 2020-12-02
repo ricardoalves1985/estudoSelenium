@@ -19,6 +19,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import suporte.Generator;
 import suporte.ScreenShot;
+import suporte.Web;
 
 import java.util.concurrent.TimeUnit;
 
@@ -30,12 +31,11 @@ public class InformacaoUsuarioTest {
     @Rule
     public TestName test = new TestName();
 
+
+
     @Before
-    public void steUP(){ System.setProperty("webdriver.chrome.driver", "/Users/ricardoalves/IdeaProjects/chromedriver");
-        ///Users/ricardoalves/IdeaProjects/chromedriver
-        navegador = new ChromeDriver(); //abre o navegador
-        navegador.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        navegador.get("http://www.juliodelima.com.br/taskit");
+    public void steUP(){
+        navegador = Web.createChrome();
 
         //Clicar no navegador que possui texto Sing-In
         navegador.findElement(By.linkText("Sign in")).click();
