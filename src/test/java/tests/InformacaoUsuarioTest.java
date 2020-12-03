@@ -24,7 +24,7 @@ import suporte.Web;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(DataDrivenTestRunner.class)
-@DataLoader(filePaths = "InformacaoUsuarioTest.csv") //onde fcara guardado os dados da classe
+@DataLoader(filePaths = "InformacaoUsuarioTest.csv") //onde vem dos dados guardado para testes os dados da classe
 public class InformacaoUsuarioTest {
 
     private WebDriver navegador;
@@ -92,7 +92,7 @@ public class InformacaoUsuarioTest {
         WebElement mensagemPop = navegador.findElement(By.id("toast-container"));
 
         String mensagem = mensagemPop.getText();
-        assertEquals(mensagemEsperada, mensagem);
+
 
 
 
